@@ -37,3 +37,44 @@ type Permutation<T, C = T> = [T] extends [never]
 type TestPermutation = [
   Expect<Equal<Permutation<1 | 2>, [1, 2] | [2, 1]>>,
 ]
+
+// ----------------------------------------------------------
+
+/**
+ * Check if P exists in T[]
+ * The equal here will allow you check if unknown and any is the same
+ */
+type CheckExist<T extends any[], P> = T extends [infer First, ...infer Rest]
+  ? Equal<First, P> extends true
+    ? true
+    : CheckExist<Rest, P>
+  : false
+
+/**
+ * Distinct T[]
+ */
+type Unique<T extends any[], U extends any[] = []> = T extends [infer First, ...infer Rest]
+? CheckExist<U, First> extends true
+  ? Unique<Rest, U>
+  : Unique<Rest, [...U, First]>
+: U
+
+// ----------------------------------------------------------
+
+/**
+ * Merge 2 Objects
+ */
+type Merge<F, S> = {
+  [K in keyof F | keyof S]: K extends keyof S
+    ? S[K]
+    : K extends keyof F
+    ? F[K]
+    : never;
+};
+
+/**
+ * Flip key-value to value-key in Object
+ */
+type Flip<T extends Record<string, string | number | boolean>> = {
+  [P in keyof T as `${T[P]}`]: P
+}

@@ -67,6 +67,16 @@ type TupleToString<T extends string[]> = T extends [infer First extends string, 
 // 'foobar'
 type TestTupleToString = TupleToString<['foo', 'bar']>
 
+/**
+ * Object to tuple
+ * {1: 1, 2: 2} ==> [[1, 1] | [2, 2]]
+ */
+type ObjectToTuple<T extends Object, U extends any[] = [], K extends keyof T = keyof T> = keyof T extends [never]
+  ? U
+  : K extends K
+    ? [...U, [T[K], K]]
+    : [] 
+
 // ----------------------------------------------------------
 
 /**
@@ -79,3 +89,16 @@ type TestCheckEmptyUnion2 = CheckEmptyUnion<Exclude<1 | 2, 1 | 2>>
 
 // ----------------------------------------------------------
 
+/**
+ * Function Manipulation
+ */
+type ReverseTuple<T extends any[]> = T extends [...infer Rest, infer Last]
+  ? [Last, ...ReverseTuple<Rest>]
+  : []
+
+
+type FlipArguments<T extends Function> = T extends (...args: infer R) => infer RT
+  ? (...args: ReverseTuple<R>) => RT
+  : any
+
+// ----------------------------------------------------------
