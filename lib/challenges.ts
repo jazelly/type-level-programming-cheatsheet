@@ -3,7 +3,7 @@ import { Equal, Expect } from '../utils'
 // ----------------------------------------------------------
 
 /**
- * ReplaceAll
+ * Replace all string occurrences of `From` in `S` with `To`
  */
 type ReplaceAll<S extends string, From extends string, To extends string> = From extends ''
   ? S
