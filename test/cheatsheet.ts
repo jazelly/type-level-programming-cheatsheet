@@ -20,6 +20,20 @@ type Cases = [
   Expect<Equal<CS.TupleToUnion<[1, 2, 3]>, 1 | 2 | 3>>,
   Expect<Equal<CS.TupleToString<['foo', 'bar']>, 'foobar'>>,
   Expect<Equal<CS.ReverseTuple<[1, 2, 3]>, [3, 2, 1]>>,
+
+  Expect<Equal<CS.IterateSet<1 | 2 | 3>, {
+    1: 1,
+    2: 2,
+    3: 3,
+  }>>,
+  Expect<Equal<CS.MyOptional<{
+    foo: number,
+    bar: string,
+  }>, {
+    foo?: number | undefined,
+    bar?: string | undefined,
+  }>>,
+
   Expect<Equal<CS.ObjectToTuple<{1: 2, 3: 4}>, [1, 2] | [3, 4]>>,
   Expect<Equal<CS.Merge<{a: 1, b: 2}, {b: 3}>, {a: 1, b: 3}>>,
 

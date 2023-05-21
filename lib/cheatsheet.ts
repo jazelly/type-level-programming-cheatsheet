@@ -71,7 +71,26 @@ export type ReverseTuple<T extends any[]> = T extends [...infer Rest, infer Last
   ? [Last, ...ReverseTuple<Rest>]
   : []
   
-// --------------------Map or Set Manipulation---------------------
+// --------------------Map(Object) or Set Manipulation---------------------
+
+/**
+ * Iterate keys
+ * In this example, we just map a same value of key
+ */
+export type IterateSet<T extends string | number | symbol> = { 
+  [P in T]: P
+}
+
+// Similarly, we can do this for a map
+type IterateMap<T> = {
+  [P in keyof T]: T[P]
+}
+
+// You can then manipulate the key/value in the map
+// e.g. make them all optional
+export type MyOptional<T> = {
+  [P in keyof T]?: T[P]
+}
 
 /**
  * Object to union of tuples
