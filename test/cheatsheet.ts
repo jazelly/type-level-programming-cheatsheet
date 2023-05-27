@@ -16,6 +16,13 @@ type Cases = [
   
   Expect<Equal<CS.StringToTuple<'123'>, ['1', '2', '3']>>,
   Expect<Equal<CS.ReverseString<'123'>, '321'>>,
+
+  Expect<Equal<CS.CastNumberToString<12.000>, '12'>>,
+  Expect<Equal<CS.CastNumberToString<12.101>, '12.101'>>,
+  Expect<Equal<CS.CastNumberToString<12.10>, '12.1'>>,
+
+  Expect<Equal<CS.Integer<12.101>, never>>,
+  Expect<Equal<CS.Integer<12.00>, 12>>,
   
   Expect<Equal<CS.TupleToUnion<[1, 2, 3]>, 1 | 2 | 3>>,
   Expect<Equal<CS.TupleToString<['foo', 'bar']>, 'foobar'>>,

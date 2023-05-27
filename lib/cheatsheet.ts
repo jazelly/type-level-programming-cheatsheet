@@ -54,6 +54,18 @@ export type ReverseString<T extends string> = T extends `${infer F}${infer R}`
   ? `${ReverseString<R>}${F}`
   : ''
 
+
+// ----------------------Number Manipulation------------------------------------
+/**
+ * Notice how this strips unnecessary decimal part
+ */
+export type CastNumberToString<T extends number> = `${T}`
+
+/**
+ * If T's value is an integer, return the integer form, otherwise never
+ */
+export type Integer<T extends number> = `${T}` extends `${bigint}` ? T : never
+
 // --------------------Tuple Manipulation------------------------
 
 /**
