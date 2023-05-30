@@ -93,6 +93,16 @@ export type IterateSet<T extends string | number | symbol> = {
   [P in T]: P
 }
 
+/**
+ * The conjunction of 2 elements or 2 sets will tend to return lower level type
+ * e.g. more specific type
+ */
+
+type ConjunctionSet = [
+  Expect<Equal<2 & number, 2>>,
+  Expect<Equal<2 & (number | string), 2>>,
+]
+
 // Similarly, we can do this for a map
 type IterateMap<T> = {
   [P in keyof T]: T[P]
