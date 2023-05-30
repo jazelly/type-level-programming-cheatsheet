@@ -4,15 +4,7 @@
   "description": "This repo collects all the tricks to help smash [type-challenges](https://github.com/type-challenges/type-challenges/)",
   "private": true,
   "devDependencies": {
-    "@antfu/eslint-config": "^0.25.1",
-    "@types/fs-extra": "^9.0.13",
-    "@types/js-yaml": "^4.0.5",
-    "@types/lz-string": "^1.3.34",
-    "@types/node": "^18.0.0",
-    "@types/prompts": "^2.4.2",
-    "eslint": "^8.18.0",
     "typescript": "^4.7.4"
   },
-  "author": "jazelly <xzha4350@gmail.com>",
-  "license": "MIT"
+  "author": "jazelly <xzha4350@gmail.com>"
 }
