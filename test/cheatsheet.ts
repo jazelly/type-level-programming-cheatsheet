@@ -43,6 +43,14 @@ type Cases = [
 
   Expect<Equal<CS.ObjectToTuple<{1: 2, 3: 4}>, [1, 2] | [3, 4]>>,
   Expect<Equal<CS.Merge<{a: 1, b: 2}, {b: 3}>, {a: 1, b: 3}>>,
+  Expect<Equal<CS.DropReadonly<{
+    a: 1
+    readonly b: 2
+  }>, { a: 1, b: 2}>>,
+  Expect<Equal<CS.DropOptional<{
+    a?: 1
+    b: 2
+  }>, { a: 1, b: 2}>>,
 
   Expect<Equal<CS.CheckEmptyUnion<1 | 2>, false>>,
   Expect<Equal<CS.CheckEmptyUnion<Exclude<1 | 2, 1 | 2>>, true>>,

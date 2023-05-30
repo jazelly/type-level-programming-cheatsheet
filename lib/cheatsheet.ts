@@ -116,8 +116,8 @@ export type ObjectToTuple<T extends Object, U extends any[] = [], _K extends key
 
 /**
  * Merge two objects
- * Make use of the fact that keyof objects are set, so you can simply union them to get the resulted keys
- * For values, simply do conditional check so you can get value with index 
+ * Make use of the fact that keyof objects are set, so you can union them
+ * For values, simply do conditional check to get the kind of value you want 
  */
 export type Merge<F, S> = {
   [K in keyof F | keyof S]: K extends keyof S
@@ -125,6 +125,20 @@ export type Merge<F, S> = {
     : K extends keyof F
       ? F[K]
       : never;
+}
+
+/**
+ * Drop readonly from object keys
+ */
+export type DropReadonly<T> = {
+  -readonly [P in keyof T]: T[P]
+}
+
+/**
+ * Similarly, you can drop "?"
+ */
+export type DropOptional<T> = {
+  [P in keyof T]-?: T[P]
 }
 
 /**
