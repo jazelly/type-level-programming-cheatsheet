@@ -89,7 +89,7 @@ export type ReverseTuple<T extends any[]> = T extends [...infer Rest, infer Last
  * Iterate keys
  * In this example, we just map a same value of key
  */
-export type IterateSet<T extends string | number | symbol> = { 
+export type IterateSet<T extends PropertyKey> = { 
   [P in T]: P
 }
 
@@ -97,7 +97,6 @@ export type IterateSet<T extends string | number | symbol> = {
  * The conjunction of 2 elements or 2 sets will tend to return lower level type
  * e.g. more specific type
  */
-
 type ConjunctionSet = [
   Expect<Equal<2 & number, 2>>,
   Expect<Equal<2 & (number | string), 2>>,
@@ -156,6 +155,7 @@ export type DropOptional<T> = {
  */
 export type CheckEmptyUnion<T> = [T] extends [never] ? true : false
 // Why not T extends never?
+// never will be short-circuited
 // As it will return never when CheckEmptyUnion<Exclude<1 | 2, 1 | 2>>
 // See more in test by searchig this function name
 
@@ -168,5 +168,18 @@ export type FlipArguments<T extends Function> = T extends (...args: infer R) => 
   ? (...args: ReverseTuple<R>) => RT
   : any
 
+
+declare function Currying<T>(fn: T extends Function ? T : never): Curried<typeof fn>
+/**
+ * Currying a function foo(a, b, c) => number to bar(a) => bar(b) => bar(c) => number
+ */
+export type Curried<T extends Function> =
+    T extends (...args: infer Args extends any[]) => any
+      ? Args['length'] extends 1
+        ? (...a: Args) => true
+        : Args extends [infer F, ...infer R]
+          ? (a: F) => Curried<(...c: R) => true>
+          : () => true
+      : never
 
 export * as default from './cheatsheet'
